@@ -112,7 +112,8 @@ if ! shopt -oq posix; then
 fi
 
 export PATH="/opt/arduino-1.8.8:/home/will/bin:/home/will/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath_target_1620140:/mnt/c/Program Files (x86)/Intel/iCLS Client:/mnt/c/Program Files/Dell/DW WLAN Card:/mnt/c/Program Files/Intel/iCLS Client:/mnt/c/Windows/System32:/mnt/c/Windows:/mnt/c/Windows/System32/wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Windows/System32:/mnt/c/Windows:/mnt/c/Windows/System32/wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files/Geth:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files (x86)/Brackets/command:/mnt/c/Users/hatte/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/hatte/AppData/Local/GitHubDesktop/bin:/snap/bin:/snap/bin:/home/will/.vimpkg/bin"
-export PATH=/home/will/src/esp-open-sdk/xtensa-lx106-elf/bin:$PATH 
+export PATH=/home/will/src/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
+export PATH="$HOME/bin:$PATH"
 #export DISPLAY=":00"
 export GOPATH="/home/will/gocode"
 
@@ -139,5 +140,5 @@ export SCREENDIR=$HOME/.screen
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
+#export GEM_HOME="$HOME/gems"
+#export PATH="$HOME/gems/bin:$PATH"
