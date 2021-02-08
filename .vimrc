@@ -4,7 +4,6 @@ filetype off
 set encoding=utf-8
 set nocompatible         
 set nowrap
-"set paste
 let g:deoplete#enable_at_startup = 1
 
 """ VUNDLE CONFIGURATION 
@@ -15,10 +14,11 @@ Plugin 'VundleVim/Vundle.vim' "Plugin Manager
 
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
+Plugin 'junegunn/goyo.vim'
 Plugin 'tpope/vim-obsession'
 
 """ Dev Support
-"Plugin 'universal-ctags/ctags' "necessary for linting and suggesting and stuff
+Plugin 'universal-ctags/ctags'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'Townk/vim-autoclose'
 Plugin 'neomake/neomake' "linter, replaces syntastic
@@ -31,14 +31,14 @@ Plugin 'roxma/nvim-yarp'
 
 "Visual
 Plugin 'scrooloose/nerdtree'
-"Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
-"Plugin 'tpope/vim-fugitive' "git wrapper
 
 "python dev
-Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'SkyLeach/pudb.vim'
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'jupyter-vim/jupyter-vim'
 
 "Solidity development
 Plugin 'tomlion/vim-solidity'
@@ -46,20 +46,18 @@ Plugin 'tomlion/vim-solidity'
 call vundle#end()
 
 filetype plugin indent on
-""" END VUNDLE
 
-"let g:powerline_pycmd='py3'
-
-
-"set rtp+=/home/will/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set laststatus=2
 set t_Co=256
 
 """ CONFIG SECTION
 
-""" PYTHON SPECIFIC STUFF 7/31/19
-let python_highlight_all=1
+set expandtab
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
+let python_highlight_all=1
+imap <F5> <Esc>:w<CR>:!clear;python %<CR>
+let g:python3_host_prog = '/usr/bin/python3'
 
 
 " Linenumbers
@@ -71,17 +69,10 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 au vimenter * if !argc() | NERDTree | endif
 
 "set leader
-let mapleader = "  "
-
-" tab fix
-"set tabstop=4
-"set shiftwidth=4
-"set smarttab
-"set expandtab
+let mapleader = " "
 
 " status line
 set showcmd
-"set laststatus=2
 
 " neomake (code linting)
 " Full config: when writing or reading a buffer, and on changes in insert and
@@ -89,7 +80,6 @@ set showcmd
 call neomake#configure#automake('nrwi', 250)
 autocmd! BufWritePost,BufEnter * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_scss_enabled_makers = ['scss_lint']
 let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint', 'python']
 let g:neomake_java_enabled_makers = ['javac', 'mvn']
 let g:neomake_arduino_enabled_makers = ['gcc']
@@ -99,20 +89,8 @@ let g:neomake_arduino_enabled_makers = ['gcc']
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 "inoremap <expr><TAB><TAB>  pumvisible() ? "\<C-n><CR>" : "\<TAB>"
 
-" arduino dev
 
-let g:arduino_cmd = '/opt/arduino-1.8.8/arduino'
-let g:arduino_dir = '/opt/arduino-1.8.8'
-let g:arduino_home_dir = "$HOME/aws"
-let g:arduino_run_headless = 1
-let g:arduino_args = '--verbose-upload'
-let g:arduino_serial_cmd = 'cu -l {port} -s {baud}'
-let g:arduino_serial_baud = 9600
-let g:arduino_auto_baud = 1
-let g:arduino_serial_tmux = 'split-window -d'
-let g:arduino_serial_port_globs = ['/dev/ttyS*']
-
-map <F5> mzgg=G`z
+"map <F5> mzgg=G`z
 "set term=screen-256color
 
 " quick exit insert mode
@@ -154,18 +132,8 @@ let g:fzf_colors =
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" Quick shortcuts
-inoremap II <Esc>I
-inoremap AA <Esc>A
-inoremap OO <Esc>O
-inoremap CC <Esc>C
-inoremap SS <Esc>S
-inoremap DD <Esc>dd
-inoremap UU <Esc>u
-
 " pane navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
