@@ -39,6 +39,18 @@ Plugin 'nvie/vim-flake8'
 Plugin 'SkyLeach/pudb.vim'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'jupyter-vim/jupyter-vim'
+"Plugin 'kh3phr3n/python-syntax'
+
+" colors
+Plugin 'liuchengxu/space-vim-dark'
+Plugin 'jaredgorski/spacecamp'
+
+" javascript
+
+" Plugin 'pangloss/vim-javascript'
+Plugin 'yuezk/vim-js'
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'HerringtonDarkholme/yats.vim'
 
 "Solidity development
 Plugin 'tomlion/vim-solidity'
@@ -59,6 +71,8 @@ let python_highlight_all=1
 imap <F5> <Esc>:w<CR>:!clear;python %<CR>
 let g:python3_host_prog = '/usr/bin/python3'
 
+" set colorscheme
+colorscheme spacecamp
 
 " Linenumbers
 set number
