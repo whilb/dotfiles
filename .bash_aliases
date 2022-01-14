@@ -28,3 +28,4 @@ list_sorted() {
 alias modvim='vim ~/.vimrc'
 
 alias vim='nvim'
+alias minicom='minicom -con'
