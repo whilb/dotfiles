@@ -16,12 +16,15 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/goyo.vim'
 Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-commentary'
 
 """ Dev Support
 Plugin 'universal-ctags/ctags'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'Townk/vim-autoclose'
 Plugin 'neomake/neomake' "linter, replaces syntastic
+Plugin 'APZelos/blamer.nvim'
 
 "Deoplete Specific
 Plugin 'Shougo/deoplete.nvim' "auto completion/suggestion
@@ -33,9 +36,11 @@ Plugin 'roxma/nvim-yarp'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
+Plugin 'jaredgorski/spacecamp'
 
 "python dev
 Plugin 'nvie/vim-flake8'
+Plugin 'vim-python/python-syntax' "fstring
 Plugin 'SkyLeach/pudb.vim'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'jupyter-vim/jupyter-vim'
@@ -54,10 +59,17 @@ set t_Co=256
 
 set expandtab
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType java setlocal shiftwidth=2 tabstop=2
+autocmd FileType c setlocal shiftwidth=2 tabstop=2
 
-let python_highlight_all=1
+let g:python_highlight_all=1
 imap <F5> <Esc>:w<CR>:!clear;python %<CR>
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3.8'
+
+colorscheme spacecamp
+
+"blamer
+let g:blamer_enabled = 1
 
 
 " Linenumbers
@@ -69,7 +81,7 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 au vimenter * if !argc() | NERDTree | endif
 
 "set leader
-let mapleader = " "
+"let mapleader = " "
 
 " status line
 set showcmd
@@ -81,7 +93,7 @@ call neomake#configure#automake('nrwi', 250)
 autocmd! BufWritePost,BufEnter * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint', 'python']
-let g:neomake_java_enabled_makers = ['javac', 'mvn']
+let g:neomake_java_enabled_makers = ['javac']
 let g:neomake_arduino_enabled_makers = ['gcc']
 
 " <TAB>: completion.
@@ -137,3 +149,5 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+source ~/.config/nvim/cscope_maps.vim
