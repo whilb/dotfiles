@@ -1,0 +1,27 @@
+# ~/.dircolors
+# Use these with eval "$(dircolors ~/.dircolors)"
+
+# Base colors
+DIR 38;5;110       # soft blue-cyan
+LINK 38;5;177      # soft magenta
+EXEC 38;5;114      # bright green
+BLK 38;5;215
+CHR 38;5;215
+SOCK 38;5;208
+DOOR 38;5;208
+FIFO 38;5;244
+OTHER_WRITABLE 48;5;52;38;5;226
+STICKY 48;5;52;38;5;46
+STICKY_OTHER_WRITABLE 48;5;52;38;5;82
+MISSING 38;5;124
+
+# Archive and media
+*.tar 38;5;166
+*.zip 38;5;166
+*.gz  38;5;166
+*.xz  38;5;166
+*.mp3 38;5;135
+*.mp4 38;5;135
+*.jpg 38;5;215
+*.png 38;5;215
+

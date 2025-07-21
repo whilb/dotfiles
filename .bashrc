@@ -116,35 +116,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-encrypt () {
-        output=~/"${1}".$(date +%s).enc
-        gpg --encrypt --armor --output ${output} -r  0x177F86CFB7908132F857247D4966D14AAFD562F4 "${1}" && echo "${1} -> ${output}"
-}
+# LS Colors
+if [ -f ~/.dircolors ]; then
+	eval "$(dircolors -b ~/.dircolors)"
+fi
 
-decrypt () {
-        output=$(echo "${1}" | rev | cut -c16- | rev)
-        gpg --decrypt --output ${output} "${1}" && echo "${1} -> ${output}"
-}
-
-alias pip=pip3
-alias python=python3
-
-export MAXIM_PATH=/home/will/elagatech/MaximSDK
-export PATH=$PATH:/home/will/.local/bin:/usr/bin/xpack-cdt:/home/will/elagatech/MaximSDK/Tools
-
-# unset SSH_AGENT_PID
-# if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-#         # export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
-#         export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-# fi
-# export GPG_TTY="$(tty)"
-# export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-# gpg-connect-agent updatestartuptty /bye > /dev/null
-# export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-# gpgconf --launch gpg-agent
-# eval $(gpg-agent --daemon --enable-ssh-support --sh)
 if ! [ "$TERM_PROGRAM" = tmux ]; then
-        ln -sf $SSH_AUTH_SOCK /home/wbutler/.ssh/ssh_auth_sock
+        ln -sf $SSH_AUTH_SOCK /home/$USER/.ssh/ssh_auth_sock
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

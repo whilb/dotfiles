@@ -64,7 +64,7 @@ autocmd FileType c setlocal shiftwidth=2 tabstop=2
 
 let g:python_highlight_all=1
 imap <F5> <Esc>:w<CR>:!clear;python %<CR>
-let g:python3_host_prog = '/usr/bin/python3.8'
+let g:python3_host_prog = '/usr/bin/python3'
 
 colorscheme spacecamp
 
@@ -150,4 +150,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-source ~/.config/nvim/cscope_maps.vim
+if filereadable(expand("~/.config/nvim/cscope_maps.vim"))
+  source ~/.config/nvim/cscope_maps.vim
+endif
