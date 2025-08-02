@@ -40,6 +40,15 @@ install_ctags() {
 install_nvim() {
 	echo "[*] Checking for Neovim..."
 
+        for pkg in pynvim pudb; do
+                if ! python3 -c "import ${pkg}" >/dev/null 2>&1; then
+                        echo "[*] Installing $pkg..."
+                        python3 -m pip install --user --break-system-packages "$pkg"
+                else
+                        echo "[✔] $pkg already installed"
+                fi
+        done
+
 	if command -v nvim >/dev/null; then
 		echo "[✔] Neovim is already installed at $(command -v nvim)"
 		return
@@ -67,20 +76,12 @@ install_nvim() {
 			;;
 	esac
 
-        for pkg in pynvim pudb; do
-                if ! python3 -c "import ${pkg}" >/dev/null 2>&1; then
-                        echo "[*] Installing $pkg..."
-                        python3 -m pip install --user "$pkg"
-                else
-                        echo "[✔] $pkg already installed"
-                fi
-        done
-
 	echo "[✔] Neovim installed via package manager."
 	if ! [ -d ~/.vim/bundle/Vundle.vim ]; then
 		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	fi
 	nvim +PluginInstall +qall
+        nvim +UpdateRemotePlugins +qall
 }
 
 install_fzf() {
