@@ -8,9 +8,9 @@ install_build_essentials() {
     Linux)
       if [ -f /etc/debian_version ]; then
         sudo apt update
-        sudo apt install -y build-essential pkg-config libssl-dev curl cmake perl
+        sudo apt install -y build-essential pkg-config libssl-dev curl cmake perl python3 python3-pip
       elif [ -f /etc/arch-release ]; then
-        sudo pacman -Sy --noconfirm base-devel pkgconf openssl cmake perl
+        sudo pacman -Sy --noconfirm base-devel pkgconf openssl cmake perl python3 python3-pip
       elif [ -f /etc/redhat-release ]; then
         # Works for RHEL, Fedora, CentOS
 	# Try group install if supported
@@ -22,7 +22,8 @@ install_build_essentials() {
 	fi
 
 	# Always install pkgconf and OpenSSL headers
-	sudo dnf install -y pkgconf-pkg-config openssl-devel curl cmake perl
+	sudo dnf install -y pkgconf-pkg-config openssl-devel curl cmake perl python3 python3-pip
+        # ^ maybe broken, havent tested
 
       else
         echo "[!] Unsupported Linux distro"
@@ -40,20 +41,20 @@ install_build_essentials() {
 }
 
 install_build_extras() {
-  echo "[*] Installing extra build tools (ninja, gdb, clang, etc.)..."
+  echo "[*] Installing extra tools (ninja, gdb, clang, etc.)..."
 
   case "$(uname -s)" in
     Darwin)
-      brew install ninja gdb lldb clang
+      brew install ninja gdb lldb clang ripgrep
       ;;
 
     Linux)
       if [ -f /etc/debian_version ]; then
-        sudo apt install -y ninja-build gdb clang lldb
+        sudo apt install -y ninja-build gdb clang lldb ripgrep
       elif [ -f /etc/arch-release ]; then
-        sudo pacman -Sy --noconfirm ninja gdb clang lldb
+        sudo pacman -Sy --noconfirm ninja gdb clang lldb ripgrep
       elif [ -f /etc/redhat-release ]; then
-        sudo dnf install -y ninja-build gdb clang lldb
+        sudo dnf install -y ninja-build gdb clang lldb ripgrep
       else
         echo "[!] Unsupported Linux distro"
         exit 1

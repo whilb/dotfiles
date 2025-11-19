@@ -51,30 +51,30 @@ install_nvim() {
 
 	if command -v nvim >/dev/null; then
 		echo "[✔] Neovim is already installed at $(command -v nvim)"
-		return
-	fi
-	echo "[*] Installing Neovim using system package manager..."
+        else
+                echo "[*] Installing Neovim using system package manager..."
 
-	case "$(uname -s)" in
-		Linux)
-			if [ -f /etc/debian_version ]; then
-				sudo apt update
-				sudo apt install -y neovim python3-pip
-			elif [ -f /etc/arch-release ]; then
-				sudo pacman -Sy --noconfirm neovim python3-pip
-			elif [ -f /etc/redhat-release ]; then
-				sudo dnf install -y neovim python3-pip
-			else
-				echo "[!] Unsupported Linux distro"
-				exit 1
-			fi
-			;;
+                case "$(uname -s)" in
+                        Linux)
+                                if [ -f /etc/debian_version ]; then
+                                        sudo apt update
+                                        sudo apt install -y neovim python3-pip
+                                elif [ -f /etc/arch-release ]; then
+                                        sudo pacman -Sy --noconfirm neovim python3-pip
+                                elif [ -f /etc/redhat-release ]; then
+                                        sudo dnf install -y neovim python3-pip
+                                else
+                                        echo "[!] Unsupported Linux distro"
+                                        exit 1
+                                fi
+                                ;;
 
-		*)
-			echo "[!] Unsupported OS: $(uname -s)"
-			exit 1
-			;;
-	esac
+                        *)
+                                echo "[!] Unsupported OS: $(uname -s)"
+                                exit 1
+                                ;;
+                esac
+        fi
 
 	echo "[✔] Neovim installed via package manager."
 	if ! [ -d ~/.vim/bundle/Vundle.vim ]; then
