@@ -125,10 +125,22 @@ install_extras() {
       if [ -f /etc/debian_version ]; then
         sudo apt update
         sudo apt install -y tmux
+
+        # Docker image inspection tool
+        DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+        curl -fOL "https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.deb"
+        sudo apt install ./dive_${DIVE_VERSION}_linux_amd64.deb
+        rm -f dive*.deb
       elif [ -f /etc/arch-release ]; then
         sudo pacman -Sy --noconfirm tmux
       elif [ -f /etc/redhat-release ]; then
         sudo dnf install -y tmux
+
+        # Docker image inspection tool
+        DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+        curl -fOL "https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.rpm"
+        rpm -i dive_${DIVE_VERSION}_linux_amd64.rpm
+        rm -f dive*.rpm
       else
         echo "[!] Unsupported Linux distro"
         exit 1
@@ -141,5 +153,9 @@ install_extras() {
       ;;
   esac
 
-  echo "[✔] Build tools installed."
+  if [ ! -d ~/.tmux/plugins/tpm ]; then
+          git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  fi
+
+  echo "[✔] Additional packages installed."
 }
