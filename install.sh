@@ -56,6 +56,7 @@ set -e
 if $INSTALL_PACKAGES; then
   install_fzf
   build_gitui
+  install_extras
 
   # nvim
   install_ctags
