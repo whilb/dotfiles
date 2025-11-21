@@ -76,6 +76,7 @@ let g:blamer_enabled = 1
 set number
 set ruler
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+set relativenumber
 
 " auto nerdtree when no args
 au vimenter * if !argc() | NERDTree | endif
@@ -143,6 +144,8 @@ let g:fzf_colors =
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+nnoremap sf :vs<CR> :Files<CR>
 
 " pane navigation
 nnoremap <C-J> <C-W><C-J>
