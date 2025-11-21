@@ -18,6 +18,7 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
 
 """ Dev Support
 Plugin 'universal-ctags/ctags'
@@ -146,6 +147,7 @@ let g:fzf_colors =
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 nnoremap sf :vs<CR> :Files<CR>
+nnoremap fs :Files<CR>
 
 " pane navigation
 nnoremap <C-J> <C-W><C-J>
