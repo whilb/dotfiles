@@ -8,9 +8,9 @@ install_build_essentials() {
     Linux)
       if [ -f /etc/debian_version ]; then
         sudo apt update
-        sudo apt install -y build-essential pkg-config libssl-dev curl cmake perl python3 python3-pip
+        sudo apt install -y build-essential pkg-config libssl-dev curl cmake perl python3 python3-pip python3-flake8
       elif [ -f /etc/arch-release ]; then
-        sudo pacman -Sy --noconfirm base-devel pkgconf openssl cmake perl python3 python3-pip
+        sudo pacman -Sy --noconfirm base-devel pkgconf openssl cmake perl python3 python3-pip python3-flake8
       elif [ -f /etc/redhat-release ]; then
         # Works for RHEL, Fedora, CentOS
 	# Try group install if supported
@@ -22,7 +22,7 @@ install_build_essentials() {
 	fi
 
 	# Always install pkgconf and OpenSSL headers
-	sudo dnf install -y pkgconf-pkg-config openssl-devel curl cmake perl python3 python3-pip
+	sudo dnf install -y pkgconf-pkg-config openssl-devel curl cmake perl python3 python3-pip python3-flake8
         # ^ maybe broken, havent tested
 
       else

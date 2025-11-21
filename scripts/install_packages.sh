@@ -124,7 +124,7 @@ install_extras() {
     Linux)
       if [ -f /etc/debian_version ]; then
         sudo apt update
-        sudo apt install -y tmux
+        sudo apt install -y tmux tree
 
         # Docker image inspection tool
         DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
@@ -132,9 +132,9 @@ install_extras() {
         sudo apt install ./dive_${DIVE_VERSION}_linux_amd64.deb
         rm -f dive*.deb
       elif [ -f /etc/arch-release ]; then
-        sudo pacman -Sy --noconfirm tmux
+        sudo pacman -Sy --noconfirm tmux dive tree
       elif [ -f /etc/redhat-release ]; then
-        sudo dnf install -y tmux
+        sudo dnf install -y tmux tree
 
         # Docker image inspection tool
         DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
