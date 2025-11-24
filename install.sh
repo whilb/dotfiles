@@ -10,6 +10,7 @@ INSTALL_BUILD_TOOLS=false
 INSTALL_BUILD_EXTRAS=false
 INSTALL_DOTFILES=false
 INSTALL_EXTRAS=false
+INSTALL_PACKAGES=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in

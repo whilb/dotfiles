@@ -43,7 +43,7 @@ install_build_essentials() {
 }
 
 install_build_extras() {
-  echo "[*] Installing extra tools (ninja, gdb, clang, etc.)..."
+  echo "[*] Installing extra tools (bazel, ninja, gdb, clang, etc.)..."
 
   case "$(uname -s)" in
     Darwin)
@@ -51,6 +51,13 @@ install_build_extras() {
       ;;
 
     Linux)
+            if ! command -v bazel >/dev/null 2>&1; then
+                mkdir -pv ~/opt
+                rm -f ~/opt/bazelisk-linux-amd64
+                wget https://github.com/bazelbuild/bazelisk/releases/download/v1.27.0/bazelisk-linux-amd64 -P ~/opt
+                chmod +x ~/opt/bazelisk-linux-amd64 && ~/opt/bazelisk-linux-amd64
+                sudo ln -sf ~/opt/bazelisk-linux-amd64 /usr/local/bin/bazel
+            fi
       if [ -f /etc/debian_version ]; then
         sudo apt install -y ninja-build gdb clang lldb ripgrep
       elif [ -f /etc/arch-release ]; then
