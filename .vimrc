@@ -45,6 +45,7 @@ Plugin 'vim-python/python-syntax' "fstring
 Plugin 'SkyLeach/pudb.vim'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'jupyter-vim/jupyter-vim'
+Plugin 'github/copilot.vim'
 
 "Solidity development
 Plugin 'tomlion/vim-solidity'
@@ -148,6 +149,10 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 nnoremap fs :vs<CR> :Files<CR>
 nnoremap sf :Files<CR>
+
+nnoremap cp :Copilot enable<CR>
+nnoremap cpd :Copilot disable<CR>
+let g:copilot_enabled = 0
 
 " pane navigation
 nnoremap <C-J> <C-W><C-J>

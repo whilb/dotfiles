@@ -124,7 +124,7 @@ install_extras() {
     Linux)
       if [ -f /etc/debian_version ]; then
         sudo apt update
-        sudo apt install -y tmux tree
+        sudo apt install -y tmux tree htop btop
 
         # Docker image inspection tool
         DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
@@ -132,9 +132,9 @@ install_extras() {
         sudo apt install ./dive_${DIVE_VERSION}_linux_amd64.deb
         rm -f dive*.deb
       elif [ -f /etc/arch-release ]; then
-        sudo pacman -Sy --noconfirm tmux dive tree
+        sudo pacman -Sy --noconfirm tmux dive tree htop btop
       elif [ -f /etc/redhat-release ]; then
-        sudo dnf install -y tmux tree
+        sudo dnf install -y tmux tree htop btop
 
         # Docker image inspection tool
         DIVE_VERSION=$(curl -sL "https://api.github.com/repos/wagoodman/dive/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
@@ -158,4 +158,23 @@ install_extras() {
   fi
 
   echo "[✔] Additional packages installed."
+}
+
+install_nodejs_nvm() {
+        if ! command -v nvm >/dev/null 2>&1; then
+                echo "Installing nvm"
+                # Download and install nvm:
+                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+                # in lieu of restarting the shell
+                \. "$HOME/.nvm/nvm.sh"
+
+                # Download and install Node.js:
+                nvm install 24
+
+                # Verify the Node.js version:
+                node -v # Should print "v24.11.1".
+
+                # Verify npm version:
+                npm -v # Should print "11.6.2".
+        fi
 }

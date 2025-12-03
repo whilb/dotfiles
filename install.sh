@@ -58,6 +58,7 @@ if $INSTALL_PACKAGES; then
   install_fzf
   build_gitui
   install_extras
+  install_nodejs_nvm
 
   # nvim
   install_ctags
