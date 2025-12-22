@@ -50,6 +50,8 @@ Plugin 'github/copilot.vim'
 "Solidity development
 Plugin 'tomlion/vim-solidity'
 
+Plugin 'google/vim-jsonnet'
+
 call vundle#end()
 
 filetype plugin indent on
