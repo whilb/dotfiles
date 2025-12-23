@@ -52,7 +52,39 @@ Plugin 'tomlion/vim-solidity'
 
 Plugin 'google/vim-jsonnet'
 
+Plugin 'google/vim-maktaba'
+Plugin 'bazelbuild/vim-bazel'
+
+Plugin 'stevearc/conform.nvim'
+
 call vundle#end()
+" --- Buildifier / Conform Configuration ---
+
+lua << EOF
+require("conform").setup({
+  formatters_by_ft = {
+    -- This handles BUILD, WORKSPACE, and .bzl files
+    bzl = { "buildifier" },
+  },
+  format_on_save = {
+    timeout_ms = 250,
+    lsp_format = "fallback",
+  },
+})
+
+-- Ensure Neovim knows BUILD/WORKSPACE files are 'bzl' filetype
+vim.filetype.add({
+  extension = {
+    bzl = "bzl",
+    bazel = "bzl",
+  },
+  filename = {
+    ["BUILD"] = "bzl",
+    ["WORKSPACE"] = "bzl",
+    ["MODULE.bazel"] = "bzl",
+  },
+})
+EOF
 
 filetype plugin indent on
 

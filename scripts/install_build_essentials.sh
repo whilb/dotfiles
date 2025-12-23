@@ -1,6 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+install_golang() {
+        echo "[*] Installing Go programming language..."
+        if command -v go >/dev/null 2>&1; then
+                echo "[✔] Go is already installed at $(command -v go)"
+                return
+        fi
+        GO_VERSION="1.25.5"
+        case "$(uname -s)" in
+                Darwin)
+                        if [ "$(uname -m)" = "arm64" ]; then
+                                GO_ARCH="darwin-arm64"
+                        else
+                                GO_ARCH="darwin-amd64"
+                        fi
+                        ;;
+                Linux)
+                        if [ "$(uname -m)" = "aarch64" ]; then
+                                GO_ARCH="linux-arm64"
+                        else
+                                GO_ARCH="linux-amd64"
+                        fi
+                        ;;
+                *)
+                        echo "[!] Unsupported platform: $(uname -s)"
+                        exit 1
+                        ;;
+        esac
+        GO_TAR="go${GO_VERSION}.${GO_ARCH}.tar.gz"
+        wget "https://go.dev/dl/${GO_TAR}" -O "/tmp/${GO_TAR}"
+
+        rm -rf /usr/local/go && tar -C /usr/local -xzf "/tmp/${GO_TAR}"
+
+        echo "[✔] Go installed."
+}
+
 install_build_essentials() {
   echo "[*] Installing build tools (compiler, make, etc.)..."
 
@@ -37,6 +72,7 @@ install_build_essentials() {
       ;;
   esac
 
+  install_golang
   git config --global core.editor "nvim"
 
   echo "[✔] Build tools installed."

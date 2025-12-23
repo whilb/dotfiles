@@ -19,8 +19,15 @@ while [[ $# -gt 0 ]]; do
     --extras)   INSTALL_EXTRAS=true ;;
     --build-tools) INSTALL_BUILD_TOOLS=true ;;
     --build-extras) INSTALL_BUILD_EXTRAS=true ;;
+        --all)
+          INSTALL_DOTFILES=true
+          INSTALL_PACKAGES=true
+          INSTALL_BUILD_TOOLS=true
+          INSTALL_BUILD_EXTRAS=true
+          INSTALL_EXTRAS=true
+          ;;
     --help|-h)
-      echo "Usage: ./install.sh [--dotfiles] [--packages] [--build-tools] [--build-extras] [--extras]"
+      echo "Usage: ./install.sh [--dotfiles] [--packages] [--build-tools] [--build-extras] [--extras] [--all]"
       exit 0
       ;;
     *)

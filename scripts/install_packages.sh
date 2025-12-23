@@ -40,29 +40,25 @@ install_ctags() {
 install_nvim() {
 	echo "[*] Checking for Neovim..."
 
-        for pkg in pynvim pudb; do
-                if ! python3 -c "import ${pkg}" >/dev/null 2>&1; then
-                        echo "[*] Installing $pkg..."
-                        python3 -m pip install --user --break-system-packages "$pkg"
-                else
-                        echo "[✔] $pkg already installed"
-                fi
-        done
 
 	if command -v nvim >/dev/null; then
 		echo "[✔] Neovim is already installed at $(command -v nvim)"
         else
-                echo "[*] Installing Neovim using system package manager..."
+                echo "[*] Installing Neovim from github..."
+                curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+                sudo rm -rf /opt/nvim-linux-x86_64
+                sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 
                 case "$(uname -s)" in
+                        # TODO maybe not install pip here lol
                         Linux)
                                 if [ -f /etc/debian_version ]; then
                                         sudo apt update
-                                        sudo apt install -y neovim python3-pip
+                                        sudo apt install -y python3-pip
                                 elif [ -f /etc/arch-release ]; then
-                                        sudo pacman -Sy --noconfirm neovim python3-pip
+                                        sudo pacman -Sy --noconfirm python3-pip
                                 elif [ -f /etc/redhat-release ]; then
-                                        sudo dnf install -y neovim python3-pip
+                                        sudo dnf install -y python3-pip
                                 else
                                         echo "[!] Unsupported Linux distro"
                                         exit 1
@@ -75,6 +71,15 @@ install_nvim() {
                                 ;;
                 esac
         fi
+
+        for pkg in pynvim pudb; do
+                if ! python3 -c "import ${pkg}" >/dev/null 2>&1; then
+                        echo "[*] Installing $pkg..."
+                        python3 -m pip install --user --break-system-packages "$pkg"
+                else
+                        echo "[✔] $pkg already installed"
+                fi
+        done
 
 	echo "[✔] Neovim installed via package manager."
 	if ! [ -d ~/.vim/bundle/Vundle.vim ]; then
