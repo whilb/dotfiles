@@ -31,7 +31,7 @@ install_golang() {
         GO_TAR="go${GO_VERSION}.${GO_ARCH}.tar.gz"
         wget "https://go.dev/dl/${GO_TAR}" -O "/tmp/${GO_TAR}"
 
-        rm -rf /usr/local/go && tar -C /usr/local -xzf "/tmp/${GO_TAR}"
+        sudo rm -rf /usr/local/go && tar -C /usr/local -xzf "/tmp/${GO_TAR}"
 
         echo "[✔] Go installed."
 }

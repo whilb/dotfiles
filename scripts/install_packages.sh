@@ -81,6 +81,13 @@ install_nvim() {
                 fi
         done
 
+        if command -v buildifier >/dev/null; then
+                echo "[✔] buildifier already installed at $(command -v buildifier)"
+        else
+                echo "[*] Installing buildifier..."
+                go install github.com/bazelbuild/buildtools/buildifier@latest
+        fi
+
 	echo "[✔] Neovim installed via package manager."
 	if ! [ -d ~/.vim/bundle/Vundle.vim ]; then
 		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
