@@ -18,3 +18,4 @@ list_sorted() {
 alias modvim='vim ~/.vimrc'
 
 alias vim='nvim'
+alias bat="batcat"

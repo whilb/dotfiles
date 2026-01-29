@@ -128,6 +128,7 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 . "$HOME/.cargo/env"
 
+export BAT_THEME=spacecamp
 export PATH=$PATH:/home/$USER/.local/bin
 
 export GOPATH=$HOME/go

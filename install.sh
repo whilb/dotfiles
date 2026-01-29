@@ -66,6 +66,7 @@ if $INSTALL_PACKAGES; then
   build_gitui
   install_extras
   install_nodejs_nvm
+  install_antigravity
 
   # nvim
   install_ctags
