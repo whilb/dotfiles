@@ -11,6 +11,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim' "Plugin Manager 
+Plugin 'neovim/nvim-lspconfig'
 
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
@@ -24,7 +25,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'universal-ctags/ctags'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'Townk/vim-autoclose'
-Plugin 'neomake/neomake' "linter, replaces syntastic
+" Plugin 'neomake/neomake' "linter, replaces syntastic
 Plugin 'APZelos/blamer.nvim'
 
 "Deoplete Specific
@@ -48,7 +49,7 @@ Plugin 'jupyter-vim/jupyter-vim'
 Plugin 'github/copilot.vim'
 
 "Solidity development
-Plugin 'tomlion/vim-solidity'
+" Plugin 'tomlion/vim-solidity'
 
 Plugin 'google/vim-jsonnet'
 
@@ -63,20 +64,24 @@ call vundle#end()
 lua << EOF
 require("conform").setup({
   formatters_by_ft = {
-    -- This handles BUILD, WORKSPACE, and .bzl files
     bzl = { "buildifier" },
+    python = { "black" },
+    jsonnet = { "jsonnetfmt" },
   },
   format_on_save = {
-    timeout_ms = 250,
-    lsp_format = "fallback",
+    timeout_ms = 500,
+    lsp_format = "never",
   },
+-- format_on_save = false,
 })
 
--- Ensure Neovim knows BUILD/WORKSPACE files are 'bzl' filetype
 vim.filetype.add({
   extension = {
     bzl = "bzl",
     bazel = "bzl",
+    py = "python",
+    jsonnet = "jsonnet",
+    libsonnet = "jsonnet",
   },
   filename = {
     ["BUILD"] = "bzl",
@@ -84,6 +89,7 @@ vim.filetype.add({
     ["MODULE.bazel"] = "bzl",
   },
 })
+--vim.g.gutentags_enabled = 0
 EOF
 
 filetype plugin indent on
@@ -106,6 +112,7 @@ colorscheme spacecamp
 
 "blamer
 let g:blamer_enabled = 1
+let g:jsonnet_fmt_on_save = 0
 
 
 " Linenumbers
@@ -123,15 +130,15 @@ au vimenter * if !argc() | NERDTree | endif
 " status line
 set showcmd
 
-" neomake (code linting)
-" Full config: when writing or reading a buffer, and on changes in insert and
-" " normal mode (after 1s; no delay when writing).
-call neomake#configure#automake('nrwi', 250)
-autocmd! BufWritePost,BufEnter * Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint', 'python']
-let g:neomake_java_enabled_makers = ['javac']
-let g:neomake_arduino_enabled_makers = ['gcc']
+" " neomake (code linting)
+" " Full config: when writing or reading a buffer, and on changes in insert and
+" " " normal mode (after 1s; no delay when writing).
+" call neomake#configure#automake('nrwi', 250)
+" autocmd! BufWritePost,BufEnter * Neomake
+" let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint', 'python']
+" let g:neomake_java_enabled_makers = ['javac']
+" let g:neomake_arduino_enabled_makers = ['gcc']
 
 " <TAB>: completion.
 
@@ -193,6 +200,68 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_ctags_extra_args = ['--links=no']
+" Prevent gutentags from indexing massive build/vendor directories
+let g:gutentags_ctags_exclude = [
+      \ 'bazel-*',
+      \ '*.git',
+      \ 'node_modules',
+      \ '.venv',
+      \ 'venv',
+      \ '__pycache__',
+      \ 'dist',
+      \ 'build',
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ 'bundle.js',
+      \ 'build.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ '.venv',
+      \ 'venv',
+      \ '__pycache__',
+      \ ]
 
 if filereadable(expand("~/.config/nvim/cscope_maps.vim"))
   source ~/.config/nvim/cscope_maps.vim
