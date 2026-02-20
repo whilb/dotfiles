@@ -25,7 +25,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'universal-ctags/ctags'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'Townk/vim-autoclose'
-" Plugin 'neomake/neomake' "linter, replaces syntastic
+Plugin 'neomake/neomake' "linter, replaces syntastic
 Plugin 'APZelos/blamer.nvim'
 
 "Deoplete Specific
@@ -130,15 +130,15 @@ au vimenter * if !argc() | NERDTree | endif
 " status line
 set showcmd
 
-" " neomake (code linting)
-" " Full config: when writing or reading a buffer, and on changes in insert and
-" " " normal mode (after 1s; no delay when writing).
-" call neomake#configure#automake('nrwi', 250)
-" autocmd! BufWritePost,BufEnter * Neomake
-" let g:neomake_javascript_enabled_makers = ['eslint']
-" let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint', 'python']
-" let g:neomake_java_enabled_makers = ['javac']
-" let g:neomake_arduino_enabled_makers = ['gcc']
+" neomake (code linting)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" " normal mode (after 1s; no delay when writing).
+call neomake#configure#automake('nrwi', 250)
+autocmd! BufWritePost,BufEnter * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_python_enabled_makers = ['flake8'] ", 'pylint', 'python']
+let g:neomake_java_enabled_makers = ['javac']
+let g:neomake_arduino_enabled_makers = ['gcc']
 
 " <TAB>: completion.
 

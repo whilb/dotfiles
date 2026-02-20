@@ -19,3 +19,5 @@ alias modvim='vim ~/.vimrc'
 
 alias vim='nvim'
 alias bat="batcat"
+alias fixruff="git diff dev... --name-only --diff-filter=d -- '*.py' | xargs ruff check --fix"
+alias checkpyright="git diff dev... --name-only --diff-filter=d -- '*.py' | xargs pyright --level error"
